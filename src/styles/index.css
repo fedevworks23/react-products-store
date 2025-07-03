@@ -11,7 +11,17 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  --primary: #FFFFFF;
+  --primary1: #363738;
+  --secondary: #F5F5F5;
+  --secondary1: #FEFAF1;
+  --bg: #FFFFFF;
+  --button-bg: #DB4444;
+  --hover-button-bg: #E07575;
+  --button-text: #FAFAFA;
+  --hover-button1: #A0BCE0;
+
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #000000;
+  background-color: #ffffff;
 }
