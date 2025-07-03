@@ -1,18 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllProducts, getRandomProduct } from "../../store/productsThunk";
-import type { RandomProduct } from "../../types/RandomProduct";
-import type { Product } from "../../types/productTypes";
-
-interface ProductsState {
-  detailsStatus: string;
-  random_product: RandomProduct | null;
-  all_products: Product[];
-}
+import { getAllProducts, getCategories, getRandomProduct } from "../../store/productsThunk";
+import type { ProductsState } from "../../types/ProductsState";
 
 const initialState: ProductsState = {
   detailsStatus: "idle",
   random_product: null,
   all_products: [],
+  categories: []
 };
 
 const productsSlice = createSlice({
@@ -43,6 +37,17 @@ const productsSlice = createSlice({
       state.all_products = action.payload;
     });
     builder.addCase(getAllProducts.rejected, (state) => {
+      state.detailsStatus = "failed";
+    })
+
+    // Get Categories List
+    builder.addCase(getCategories.pending, (state) => {
+      state.detailsStatus = "loading";
+    });
+    builder.addCase(getCategories.fulfilled, (state, action) => {
+      state.categories = action.payload;
+    });
+    builder.addCase(getCategories.rejected, (state) => {
       state.detailsStatus = "failed";
     });
   },

@@ -1,4 +1,4 @@
-export interface RandomProduct {
+export interface ProductDetails {
  availabilityStatus:   string;
  brand:                string;
  category:             string;

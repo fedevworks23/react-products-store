@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchAllProducts, fetchRandomProduct } from "../services/productServices";
+import { fetchAllProducts, fetchCategories, fetchRandomProduct } from "../services/productServices";
 
 export const getRandomProduct = createAsyncThunk(
   "users/getRandomProduct",
@@ -14,5 +14,13 @@ export const getAllProducts = createAsyncThunk(
   async () => {
     const response = await fetchAllProducts();
     return response.data.products;
+  }
+);
+
+export const getCategories = createAsyncThunk(
+  "users/getCategories",
+  async () => {
+    const response = await fetchCategories();
+    return response.data;
   }
 );
