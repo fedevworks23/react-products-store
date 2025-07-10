@@ -15,12 +15,21 @@ const initialState: ProductsState = {
     per_page: "8",
     current_page: "1",
   },
+  wishlists: [],
 };
 
 const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
+    addToWishLists(state, action) {
+      console.log(action.payload);
+
+      state.wishlists = [...state.wishlists, action.payload];
+    },
+    deleteFromWishLists(state, action) {
+      state.wishlists = action.payload;
+    },
     setProductFilters(state, action) {
       state.product_filters["per_page"] = action.payload.per_page;
       state.product_filters["current_page"] = action.payload.current_page;
@@ -65,6 +74,11 @@ const productsSlice = createSlice({
   },
 });
 
-export const { setProductFilters, clearAllProducts } = productsSlice.actions;
+export const {
+  setProductFilters,
+  addToWishLists,
+  deleteFromWishLists,
+  clearAllProducts,
+} = productsSlice.actions;
 
 export default productsSlice.reducer;

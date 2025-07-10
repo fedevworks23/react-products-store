@@ -13,4 +13,5 @@ export interface ProductsState {
   all_products: ProductDetails[];
   categories: Categories[];
   product_filters: ProductFilter;
+  wishlists: any[];
 }

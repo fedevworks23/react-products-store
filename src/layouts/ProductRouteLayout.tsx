@@ -9,6 +9,7 @@ const ProductOverview = React.lazy(
 );
 const Category = React.lazy(() => import("../pages/Category/Category"));
 const About = React.lazy(() => import("../pages/About/About"));
+const Wishlists = React.lazy(() => import("../pages/Wishlists/Wishlists"));
 const NotFound = React.lazy(() => import("../pages/NotFound/NotFound"));
 
 function ProductRouteLayout() {
@@ -20,6 +21,7 @@ function ProductRouteLayout() {
         <Route path={"product/:id"} element={<ProductOverview />} />
         <Route path={"category"} element={<Category />} />
         <Route path={"about"} element={<About />} />
+        <Route path={"wishlists"} element={<Wishlists />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
