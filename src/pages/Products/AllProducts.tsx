@@ -8,19 +8,16 @@ import HorizontalRule from "../../components/HorizontalRule";
 import FilterProducts from "./FilterProducts";
 import { useNavigate } from "react-router";
 import { afterDiscount } from "../../utils/common-functions";
+import { setProductFilters } from "../../features/products/productsSlice";
 
 function AllProducts() {
   const navigate = useNavigate();
-  const { all_products, dispatch } = useProducts();
-
-  
+  const { all_products, product_filters, dispatch } = useProducts();
 
   useEffect(() => {
     dispatch(getAllProducts());
   }, []);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(8);
   const [sortOrderType, setSortOrderType] = useState("asc");
 
   const [sortedProducts, setSortedProducts] = useState(all_products);
@@ -31,10 +28,12 @@ function AllProducts() {
     } else if (sortOrderType === "desc") {
       setSortedProducts([...all_products].sort((a, b) => b.price - a.price));
     }
-  }, [all_products, productsPerPage, sortOrderType]);
+  }, [all_products, sortOrderType]);
 
-  const lastProductIndex = currentPage * productsPerPage;
-  const firstProductIndex = lastProductIndex - productsPerPage;
+  const lastProductIndex =
+    Number(product_filters?.current_page) * Number(product_filters?.per_page);
+  const firstProductIndex =
+    lastProductIndex - Number(product_filters?.per_page);
   const currentProducts = sortedProducts.slice(
     firstProductIndex,
     lastProductIndex
@@ -48,28 +47,30 @@ function AllProducts() {
         </div>
 
         <FilterProducts
-          productsPerPage={productsPerPage}
-          setProductsPerPage={setProductsPerPage}
+          productsPerPage={product_filters?.per_page}
+          setProductsPerPage={(value: any) =>
+            dispatch(
+              setProductFilters({
+                ...product_filters,
+                per_page: value,
+                current_page: 1,
+              })
+            )
+          }
           sortOrderType={sortOrderType}
           setSortOrderType={setSortOrderType}
         />
 
         <HorizontalRule />
 
-        <Pagination
-          totalProducts={all_products.length}
-          productsPerPage={productsPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
-
         <div className="gap-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4">
           {Array.isArray(currentProducts) &&
             currentProducts.map((item: ProductDetails, i) => (
-              <div key={i} className="group rounded-[4px] cursor-pointer item"
-              onClick={() => 
-                navigate(`/product/${item.id}/`)
-              }>
+              <div
+                key={i}
+                className="group rounded-[4px] cursor-pointer item"
+                onClick={() => navigate(`/product/${item.id}/`)}
+              >
                 <div className="relative bg-[var(--secondary)] w-3xs">
                   <span className="left-0 absolute flex justify-center items-center bg-[var(--button-bg)] m-2 rounded-[4px] w-[60px] h-[26px] text-[12px] text-[var(--primary)]">
                     -{item.discountPercentage}%
@@ -149,6 +150,21 @@ function AllProducts() {
               </div>
             ))}
         </div>
+
+        <HorizontalRule />
+
+        <Pagination
+          totalProducts={all_products.length}
+          productsPerPage={product_filters?.per_page}
+          currentPage={product_filters?.current_page}
+          setCurrentPage={(value: any) =>
+            dispatch(
+              setProductFilters({ ...product_filters, current_page: value })
+            )
+          }
+        />
+
+        <div className="flex justify-center mt-8"> </div>
       </div>
     </>
   );
