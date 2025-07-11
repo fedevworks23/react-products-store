@@ -5,6 +5,7 @@ import {
   getRandomProduct,
 } from "../../store/productsThunk";
 import type { ProductsState } from "../../types/ProductsState";
+import { handleThunk } from "../../store/productExtraReducer";
 
 const initialState: ProductsState = {
   detailsStatus: "idle",
@@ -23,8 +24,6 @@ const productsSlice = createSlice({
   initialState,
   reducers: {
     addToWishLists(state, action) {
-      console.log(action.payload);
-
       state.wishlists = [...state.wishlists, action.payload];
     },
     deleteFromWishLists(state, action) {
@@ -40,36 +39,24 @@ const productsSlice = createSlice({
   },
   extraReducers: (builder) => {
     // Get Random Product
-    builder.addCase(getRandomProduct.pending, (state) => {
-      state.detailsStatus = "loading";
-    });
-    builder.addCase(getRandomProduct.fulfilled, (state, action) => {
-      state.random_product = action.payload;
-    });
-    builder.addCase(getRandomProduct.rejected, (state) => {
-      state.detailsStatus = "failed";
+    handleThunk(builder, {
+      thunk: getRandomProduct,
+      dataKey: "random_product",
+      statusKey: "detailsStatus",
     });
 
-    // Get All Products limit 30
-    builder.addCase(getAllProducts.pending, (state) => {
-      state.detailsStatus = "loading";
-    });
-    builder.addCase(getAllProducts.fulfilled, (state, action) => {
-      state.all_products = action.payload;
-    });
-    builder.addCase(getAllProducts.rejected, (state) => {
-      state.detailsStatus = "failed";
+    // Get All Products with default limit 30
+    handleThunk(builder, {
+      thunk: getAllProducts,
+      dataKey: "all_products",
+      statusKey: "detailsStatus",
     });
 
     // Get Categories List
-    builder.addCase(getCategories.pending, (state) => {
-      state.detailsStatus = "loading";
-    });
-    builder.addCase(getCategories.fulfilled, (state, action) => {
-      state.categories = action.payload;
-    });
-    builder.addCase(getCategories.rejected, (state) => {
-      state.detailsStatus = "failed";
+    handleThunk(builder, {
+      thunk: getCategories,
+      dataKey: "categories",
+      statusKey: "detailsStatus",
     });
   },
 });

@@ -22,10 +22,6 @@ function ProductCard({
             className="right-0 z-1 absolute flex justify-center items-center bg-[var(--primary)] m-2 px-4 py-2 rounded-full w-3 h-8"
             onClick={() => dispatch(addToWishLists(item))}
           >
-            {/* {item.id} - {wishlists[0].id} -{" "}
-            {Array.isArray(wishlists) && wishlists.some((w: any) => w.id === Number(item.id))
-              ? "Included"
-              : "Add to Wishlist"} */}
             {Array.isArray(wishlists) && wishlists.some((w: any) => w.id === Number(item.id)) ? (
               <svg
                 className="absolute"
