@@ -7,6 +7,7 @@ import HorizontalRule from "../../components/HorizontalRule";
 import FilterProducts from "./FilterProducts";
 import { setProductFilters } from "../../features/products/productsSlice";
 import ProductCard from "./ProductCard";
+import PageHeading from "../../components/PageHeading";
 
 function AllProducts() {
   const { all_products, product_filters, wishlists, dispatch } = useProducts();
@@ -38,10 +39,8 @@ function AllProducts() {
 
   return (
     <>
-      <div className="m-auto w-[80%]">
-        <div className="my-5 pb-3 text-3xl decoration-[var(--button-bg)] underline underline-offset-12">
-          All Products
-        </div>
+      <div>
+        <PageHeading title={"All Products"} />
 
         <FilterProducts
           productsPerPage={product_filters?.per_page}

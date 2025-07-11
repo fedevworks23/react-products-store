@@ -3,6 +3,7 @@ import { useProducts } from "../../store/useProducts";
 import type { ProductDetails } from "../../types/ProductDetails";
 import ProductCard from "../Products/ProductCard";
 import { deleteFromWishLists } from "../../features/products/productsSlice";
+import PageHeading from "../../components/PageHeading";
 
 function Wishlists() {
   const { wishlists, dispatch } = useProducts();
@@ -15,21 +16,20 @@ function Wishlists() {
   useEffect(() => {}, [wishlists]);
   return (
     <>
-      <div>Wishlists</div>
-      <div className="m-auto w-[80%]">
-        <div className="gap-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
-          {Array.isArray(wishlists) &&
-            wishlists.map((item: ProductDetails, i) => (
-              <ProductCard
-                key={i}
-                item={item}
-                dispatch={dispatch}
-                wishlistsEnable={false}
-                deleteIconEnable={true}
-                customEventHandler={handleDeleteWishlist}
-              />
-            ))}
-        </div>
+      <PageHeading title={`Wishlist ( ${wishlists.length} )`} />
+
+      <div className="gap-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+        {Array.isArray(wishlists) &&
+          wishlists.map((item: ProductDetails, i) => (
+            <ProductCard
+              key={i}
+              item={item}
+              dispatch={dispatch}
+              wishlistsEnable={false}
+              deleteIconEnable={true}
+              customEventHandler={handleDeleteWishlist}
+            />
+          ))}
       </div>
     </>
   );

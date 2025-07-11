@@ -7,7 +7,9 @@ function App() {
     <>
       <div>
         <Navbar />
-        <ProductRouteLayout />
+        <div className="m-auto w-[80%]">
+          <ProductRouteLayout />
+        </div>
         <Outlet />
       </div>
     </>

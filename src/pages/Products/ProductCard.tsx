@@ -9,7 +9,7 @@ function ProductCard({
   wishlistsEnable,
   deleteIconEnable,
   dispatch,
-  customEventHandler
+  customEventHandler,
 }: any) {
   const navigate = useNavigate();
 
@@ -22,7 +22,11 @@ function ProductCard({
             className="right-0 z-1 absolute flex justify-center items-center bg-[var(--primary)] m-2 px-4 py-2 rounded-full w-3 h-8"
             onClick={() => dispatch(addToWishLists(item))}
           >
-            {wishlists.includes(item.id) ? (
+            {/* {item.id} - {wishlists[0].id} -{" "}
+            {Array.isArray(wishlists) && wishlists.some((w: any) => w.id === Number(item.id))
+              ? "Included"
+              : "Add to Wishlist"} */}
+            {Array.isArray(wishlists) && wishlists.some((w: any) => w.id === Number(item.id)) ? (
               <svg
                 className="absolute"
                 width="24"
@@ -101,7 +105,7 @@ function ProductCard({
             />
 
             {/* Add to Cart */}
-            <span className="bottom-0 absolute flex justify-center items-center group-hover:bg-[var(--primary1)] px-4 py-2 w-full h-8 text-[var(--primary)]">
+            <span className="hidden bottom-0 absolute group-hover:flex justify-center items-center bg-[var(--primary1)] px-4 py-2 w-full h-8 text-[var(--primary)]">
               <svg
                 width="24"
                 height="24"
@@ -131,7 +135,7 @@ function ProductCard({
 
         {/* Title, Price and Rating */}
         <div className="flex flex-col mt-3">
-          <span className="text-[16px] truncate">{item.title}</span>
+          <span className="font-medium text-[16px] truncate">{item.title}</span>
           <span className="text-[16px]">
             <span className="text-[var(--button-bg)]">
               {" "}
