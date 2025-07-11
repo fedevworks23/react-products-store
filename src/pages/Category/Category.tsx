@@ -19,7 +19,7 @@ function Category() {
               className="group flex flex-col justify-center items-center cursor-pointer"
             >
               <div className="flex justify-center items-center bg-[var(--primary)] group-hover:bg-[var(--button-bg)] border-[var(--button-bg)] border-1 rounded-full w-25 h-25 text-[var(--button-bg)] group-hover:text-[var(--primary)] text-3xl transition-all duration-300">
-                a
+                {item.name.charAt(0)}
               </div>
               <div className="mt-2 group-hover:text-[var(--button-bg)]">
                 {item.name}
