@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getRandomProduct } from "../store/productsThunk";
+import { getRandomProduct } from "../store/productThunk";
 import HorizontalRule from "../components/HorizontalRule";
 import { useProducts } from "../store/useProducts";
 

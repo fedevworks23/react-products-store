@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useProducts } from "../../store/useProducts";
-import { getCategories } from "../../store/productsThunk";
+import { getCategories } from "../../store/productThunk";
 import PageHeading from "../../components/PageHeading";
 function Category() {
   const { dispatch, categories } = useProducts();

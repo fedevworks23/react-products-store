@@ -1,11 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  getAllProducts,
-  getCategories,
-  getRandomProduct,
-} from "../../store/productsThunk";
 import type { ProductsState } from "../../types/ProductsState";
-import { handleThunk } from "../../store/productExtraReducer";
+import { ExtraReducers } from "../../store/productExtraReducer";
 
 const initialState: ProductsState = {
   detailsStatus: "idle",
@@ -37,28 +32,7 @@ const productsSlice = createSlice({
       state.all_products = [];
     },
   },
-  extraReducers: (builder) => {
-    // Get Random Product
-    handleThunk(builder, {
-      thunk: getRandomProduct,
-      dataKey: "random_product",
-      statusKey: "detailsStatus",
-    });
-
-    // Get All Products with default limit 30
-    handleThunk(builder, {
-      thunk: getAllProducts,
-      dataKey: "all_products",
-      statusKey: "detailsStatus",
-    });
-
-    // Get Categories List
-    handleThunk(builder, {
-      thunk: getCategories,
-      dataKey: "categories",
-      statusKey: "detailsStatus",
-    });
-  },
+  extraReducers: ExtraReducers,
 });
 
 export const {

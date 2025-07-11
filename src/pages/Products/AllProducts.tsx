@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllProducts } from "../../store/productsThunk";
+import { getAllProducts } from "../../store/productThunk";
 import type { ProductDetails } from "../../types/ProductDetails";
 import { useProducts } from "../../store/useProducts";
 import Pagination from "./Pagination";
