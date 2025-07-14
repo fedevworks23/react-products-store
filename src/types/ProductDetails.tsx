@@ -21,6 +21,7 @@ export interface ProductDetails {
   title: string;
   warrantyInformation: string;
   weight: number;
+  quantity: number;
 }
 
 export interface Dimensions {

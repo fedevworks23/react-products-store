@@ -5,7 +5,7 @@ export const fetchRandomProduct = (id: string) =>
 
 export const fetchAllProducts = () =>
   productsApi.get(
-    `/products?limit=${0}&skip=${0}&select=title,price,images,discountPercentage,rating,reviews&sortBy=price&order=desc`
+    `/products?limit=${0}&skip=${0}&select=title,price,images,discountPercentage,minimumOrderQuantity,rating,stock,reviews&sortBy=price&order=desc`
   );
 
 export const fetchCategories = () => productsApi.get(`/products/categories`);
