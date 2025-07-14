@@ -1,9 +1,32 @@
-import { Link, useNavigate } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { useProducts } from "../store/useProducts";
 
 function Navbar() {
   const navigate = useNavigate();
   const { wishlists } = useProducts();
+
+  const navbarList = [
+    {
+      path: "/",
+      label: "Home",
+      to: "/",
+    },
+    {
+      path: "/products",
+      label: "Products",
+      to: "/products",
+    },
+    {
+      path: "/category",
+      label: "Category",
+      to: "/category",
+    },
+    {
+      path: "/about",
+      label: "About",
+      to: "/about",
+    },
+  ];
 
   return (
     <>
@@ -13,10 +36,19 @@ function Navbar() {
             <Link to={"/"}>PRODUCTS</Link>
           </div>
           <div className="flex flex-6/12 justify-evenly">
-            <Link to={"/"}>Home</Link>
-            <Link to={"products"}>Products</Link>
-            <Link to={"category"}>Category</Link>
-            <Link to={"about"}>About</Link>
+            {navbarList.map(({ label, to }, i) => (
+              <NavLink
+                key={i}
+                to={to}
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-[var(--button-bg)] font-semibold border-b-1"
+                    : "text-[var(--primary1)]  hover:text-[var(--hover-button-bg)] border-b-transparent"
+                }
+              >
+                {label}
+              </NavLink>
+            ))}
           </div>
           <div className="flex flex-4/12">
             <div>
