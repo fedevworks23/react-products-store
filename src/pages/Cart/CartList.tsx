@@ -5,8 +5,8 @@ import type { ProductDetails } from "../../types/ProductDetails";
 import CartListTotal from "./CartListTotal";
 
 function CartList() {
-  const { cart } = useProducts();
-  const updatedField = cart.map((item) => ({
+  const { cart_lists } = useProducts();
+  const updatedField = cart_lists.map((item) => ({
     ...item,
     quantity: item.minimumOrderQuantity,
   }));
@@ -16,11 +16,6 @@ function CartList() {
   const updateQuantity = (id: number, quantity: number) => {
     setCartList((prev) =>
       prev.map((p) => {
-        console.log({
-          min: p.minimumOrderQuantity,
-          q: quantity,
-        });
-
         return p.id === id
           ? {
               ...p,
@@ -31,10 +26,10 @@ function CartList() {
     );
   };
 
-  useEffect(() => {}, [cart]);
+  useEffect(() => {}, [cart_lists]);
   return (
     <>
-      <PageHeading title={`Cart ( ${cart.length} )`} />
+      <PageHeading title={`Cart ( ${cart_lists.length} )`} />
 
       <div className="flex justify-center items-center shadow-lg/10 mb-2 px-6 rounded-[4px] h-[72px]">
         <div className="flex-4/12">Product</div>
@@ -42,7 +37,7 @@ function CartList() {
         <div className="flex-3/12">Quantity</div>
         <div className="flex flex-3/12 justify-end">Subtotal</div>
       </div>
-      {Array.isArray(cart) &&
+      {Array.isArray(cart_lists) &&
         cartList.map(
           (
             {
@@ -126,7 +121,11 @@ function CartList() {
                         >
                           <path
                             d="M5.54779 9.09467C5.84069 8.80178 6.31556 8.80178 6.60846 9.09467L12.3281 14.8143L18.0478 9.09467C18.3407 8.80178 18.8156 8.80178 19.1085 9.09467C19.4013 9.38756 19.4013 9.86244 19.1085 10.1553L12.8585 16.4053C12.5656 16.6982 12.0907 16.6982 11.7978 16.4053L5.54779 10.1553C5.2549 9.86244 5.2549 9.38756 5.54779 9.09467Z"
-                            fill={quantity >= stock ? "#323544" : "#ffffff"}
+                            fill={
+                              quantity === minimumOrderQuantity
+                                ? "#ffffff"
+                                : "#323544"
+                            }
                           />
                         </svg>
                       </button>

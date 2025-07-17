@@ -12,7 +12,7 @@ const initialState: ProductsState = {
     current_page: "1",
   },
   wishlists: [],
-  cart: [],
+  cart_lists: [],
 };
 
 const productsSlice = createSlice({
@@ -26,10 +26,10 @@ const productsSlice = createSlice({
       state.wishlists = action.payload;
     },
     addToCartLists(state, action) {
-      state.cart = [...state.cart, action.payload];
+      state.cart_lists = [...state.cart_lists, action.payload];
     },
     deleteFromCartLists(state, action) {
-      state.cart = action.payload;
+      state.cart_lists = action.payload;
     },
     setProductFilters(state, action) {
       state.product_filters["per_page"] = action.payload.per_page;

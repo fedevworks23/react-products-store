@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 function CartListTotal({ cart }: any) {
   const [totalPrice, setTotalPrice] = useState(0);
 
-  useEffect(() => {
+  useEffect(() => {    
     const totalPrice = cart.reduce(
       (acc: any, curr: any) => acc + curr.price * curr.quantity,
       0
@@ -22,8 +22,8 @@ function CartListTotal({ cart }: any) {
           </div>
           <hr className="opacity-40" />
           <div className="flex justify-between text-md">
-            <span>Shipping:</span>
-            <span>Free</span>
+            <span>Items:</span>
+            <span>{cart.length}</span>
           </div>
           <hr className="opacity-40" />
           <div className="flex justify-between text-md">

@@ -3,7 +3,7 @@ import { useProducts } from "../store/useProducts";
 
 function Navbar() {
   const navigate = useNavigate();
-  const { wishlists } = useProducts();
+  const { wishlists, cart_lists } = useProducts();
 
   const navbarList = [
     {
@@ -107,12 +107,20 @@ function Navbar() {
             </div>
 
             {/* Cart */}
-            <NavLink
-              to="/cart"
+            <div
               className="relative flex justify-center items-center ml-1 p-1.5 w-[30px] cursor-pointer"
               onClick={() => navigate(`/cart`)}
             >
+              {cart_lists.length > 0 ? (
+                <div className="top-0 -right-1 z-10 absolute flex justify-center items-center bg-red-500 rounded-full w-4 h-4 text-[10px] text-white">
+                  {cart_lists.length}
+                </div>
+              ) : (
+                ""
+              )}
+
               <svg
+              className="absolute"
                 width="30"
                 height="30"
                 viewBox="0 0 24 24"
@@ -134,7 +142,7 @@ function Navbar() {
                   fill="#323544"
                 />
               </svg>
-            </NavLink>
+            </div>
           </div>
         </div>
 
