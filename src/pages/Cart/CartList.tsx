@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import PageHeading from "../../components/PageHeading";
 import { useProducts } from "../../store/useProducts";
 import type { ProductDetails } from "../../types/ProductDetails";
+import CartListTotal from "./CartListTotal";
 
-function Cart() {
+function CartList() {
   const { cart } = useProducts();
   const updatedField = cart.map((item) => ({
     ...item,
@@ -82,7 +83,7 @@ function Cart() {
                   <div
                     className={`flex items-center px-2 py-1 border border-gray-400 rounded-md w-fit
                       ${
-                        stock <= minimumOrderQuantity 
+                        stock <= minimumOrderQuantity
                           ? "bg-gray-500"
                           : "bg-white"
                       }`}
@@ -107,7 +108,7 @@ function Cart() {
                         >
                           <path
                             d="M19.1085 14.9053C18.8156 15.1982 18.3407 15.1982 18.0478 14.9053L12.3281 9.18566L6.60845 14.9053C6.31556 15.1982 5.84069 15.1982 5.5478 14.9053C5.2549 14.6124 5.2549 14.1376 5.5478 13.8447L11.7978 7.59467C12.0907 7.30178 12.5656 7.30178 12.8585 7.59467L19.1085 13.8447C19.4013 14.1376 19.4013 14.6124 19.1085 14.9053Z"
-                            fill="#323544"
+                            fill={quantity >= stock ? "#ffffff" : "#323544"}
                           />
                         </svg>
                       </button>
@@ -125,7 +126,7 @@ function Cart() {
                         >
                           <path
                             d="M5.54779 9.09467C5.84069 8.80178 6.31556 8.80178 6.60846 9.09467L12.3281 14.8143L18.0478 9.09467C18.3407 8.80178 18.8156 8.80178 19.1085 9.09467C19.4013 9.38756 19.4013 9.86244 19.1085 10.1553L12.8585 16.4053C12.5656 16.6982 12.0907 16.6982 11.7978 16.4053L5.54779 10.1553C5.2549 9.86244 5.2549 9.38756 5.54779 9.09467Z"
-                            fill="#323544"
+                            fill={quantity >= stock ? "#323544" : "#ffffff"}
                           />
                         </svg>
                       </button>
@@ -141,8 +142,10 @@ function Cart() {
             );
           }
         )}
+
+      {cartList && cartList.length > 0 && <CartListTotal cart={cartList} />}
     </>
   );
 }
 
-export default Cart;
+export default CartList;
