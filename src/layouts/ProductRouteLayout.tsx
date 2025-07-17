@@ -3,9 +3,9 @@ import { Routes, Route } from "react-router";
 
 const Home = React.lazy(() => import("../pages/Home"));
 
-const AllProducts = React.lazy(() => import("../pages/Products/AllProducts"));
-const ProductOverview = React.lazy(
-  () => import("../pages/Products/ProductOverview")
+const ProductsList = React.lazy(() => import("../pages/Products/ProductsList"));
+const ProductDetails = React.lazy(
+  () => import("../pages/Products/ProductDetails")
 );
 const Category = React.lazy(() => import("../pages/Category/Category"));
 const About = React.lazy(() => import("../pages/About/About"));
@@ -18,8 +18,8 @@ function ProductRouteLayout() {
     <>
       <Routes>
         <Route index element={<Home />} />
-        <Route path={"products"} element={<AllProducts />} />
-        <Route path={"product/:id"} element={<ProductOverview />} />
+        <Route path={"products"} element={<ProductsList />} />
+        <Route path={"product/:id"} element={<ProductDetails />} />
         <Route path={"category"} element={<Category />} />
         <Route path={"about"} element={<About />} />
         <Route path={"wishlists"} element={<Wishlists />} />

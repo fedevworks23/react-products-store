@@ -5,7 +5,7 @@ import { getRandomProduct } from "../../store/productThunk";
 import StarRating from "../../components/StarRatings";
 import { afterDiscount, multiplyEmoji } from "../../utils/common-functions";
 
-function ProductOverview() {
+function ProductDetails() {
   const { dispatch, random_product } = useProducts();
   const { id } = useParams();
 
@@ -186,4 +186,4 @@ function ProductOverview() {
   );
 }
 
-export default ProductOverview;
+export default ProductDetails;

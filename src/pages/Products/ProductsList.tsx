@@ -9,7 +9,7 @@ import { setProductFilters } from "../../features/products/productsSlice";
 import ProductCard from "./ProductCard";
 import PageHeading from "../../components/PageHeading";
 
-function AllProducts() {
+function ProductsList() {
   const { all_products, product_filters, wishlists, dispatch } = useProducts();
 
   useEffect(() => {
@@ -92,4 +92,4 @@ function AllProducts() {
   );
 }
 
-export default AllProducts;
+export default ProductsList;
