@@ -8,7 +8,7 @@ function ProductCard({
   item,
   wishlistsEnable,
   deleteIconEnable,
-  customEventHandler,
+  handleDeleteWishlist,
 }: any) {
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ function ProductCard({
         {deleteIconEnable && (
           <div
             className="right-0 z-1 absolute flex justify-center items-center bg-[var(--primary)] m-2 p-2 rounded-full w-10 h-10"
-            onClick={() => customEventHandler(item.id)}
+            onClick={() => handleDeleteWishlist(item.id)}
           >
             <svg
               width="24"

@@ -27,7 +27,7 @@ function Wishlists() {
               dispatch={dispatch}
               wishlistsEnable={false}
               deleteIconEnable={true}
-              customEventHandler={handleDeleteWishlist}
+              handleDeleteWishlist={handleDeleteWishlist}
             />
           ))}
       </div>

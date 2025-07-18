@@ -7,7 +7,8 @@ function AddToCart({ item }: any) {
   const handleAddToCart = (item: ProductDetails) => {
     if (!Array.isArray(cart_lists)) return;
     if (cart_lists.some((list) => list.id === item.id)) return;
-    dispatch(addToCartLists(item));
+    const quantity = item.minimumOrderQuantity;
+    dispatch(addToCartLists([...cart_lists, { ...item, quantity }]));
   };
   return (
     <>

@@ -10,7 +10,7 @@ import ProductCard from "./ProductCard";
 import PageHeading from "../../components/PageHeading";
 
 function ProductLists() {
-  const { all_products, product_filters, wishlists, dispatch } = useProducts();
+  const { all_products, product_filters, dispatch } = useProducts();
 
   useEffect(() => {
     dispatch(getAllProducts());

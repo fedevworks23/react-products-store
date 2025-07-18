@@ -1,32 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import PageHeading from "../../components/PageHeading";
 import { useProducts } from "../../store/useProducts";
 import type { ProductDetails } from "../../types/ProductDetails";
 import CartListTotal from "./CartListTotal";
+import {
+  addToCartLists,
+  deleteFromCartLists,
+} from "../../features/products/productsSlice";
 
 function CartList() {
-  const { cart_lists } = useProducts();
-  const updatedField = cart_lists.map((item) => ({
-    ...item,
-    quantity: item.minimumOrderQuantity,
-  }));
+  const { cart_lists, dispatch } = useProducts();
 
-  const [cartList, setCartList] = useState<ProductDetails[]>(updatedField);
-
-  const updateQuantity = (id: number, quantity: number) => {
-    setCartList((prev) =>
-      prev.map((p) => {
-        return p.id === id
-          ? {
-              ...p,
-              quantity: Math.max(1, p.quantity + quantity),
-            }
-          : p;
-      })
-    );
+  const handleDeleteFromCartList = (productId: number) => {
+    const result = cart_lists.filter((item) => item?.id !== productId);
+    dispatch(deleteFromCartLists(result));
   };
 
-  useEffect(() => {}, [cart_lists]);
+  const updateQuantity = (id: number, quantity: number) => {
+    const updatedCart = cart_lists.map((item) =>
+      item.id === id ? { ...item, quantity: item.quantity + quantity } : item
+    );
+    dispatch(addToCartLists(updatedCart));
+  };
+
+  useEffect(() => {}, []);
   return (
     <>
       <PageHeading title={`Cart ( ${cart_lists.length} )`} />
@@ -38,7 +35,7 @@ function CartList() {
         <div className="flex flex-3/12 justify-end">Subtotal</div>
       </div>
       {Array.isArray(cart_lists) &&
-        cartList.map(
+        cart_lists.map(
           (
             {
               id,
@@ -54,6 +51,9 @@ function CartList() {
             {
               JSON.stringify(quantity);
             }
+            {
+              JSON.stringify(quantity);
+            }
             const total = price * quantity;
             return (
               <div
@@ -61,12 +61,34 @@ function CartList() {
                 className="flex justify-center items-center shadow-lg/10 mb-2 px-6 rounded-[4px] h-[72px]"
               >
                 {/* Title */}
-                <div className="flex flex-4/12 items-center">
-                  <img
-                    src={images[0]}
-                    alt={title}
-                    className="w-[clamp(70px,0.2vw,70vw)] h-auto"
-                  />
+                <div className="relative flex flex-4/12 items-center">
+                  <span
+                    className="top-2.5 absolute cursor-pointer"
+                    onClick={() => handleDeleteFromCartList(id)}
+                  >
+                    <svg
+                      width="24"
+                      height="25"
+                      viewBox="0 0 24 25"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2 12.3906C2 6.86778 6.47715 2.39062 12 2.39062C17.5228 2.39062 22 6.86778 22 12.3906C22 17.9135 17.5228 22.3906 12 22.3906C6.47715 22.3906 2 17.9135 2 12.3906ZM8.78362 10.2354L10.9388 12.3906L8.78362 14.5458C8.49073 14.8387 8.49073 15.3136 8.78362 15.6065C9.07652 15.8994 9.55139 15.8994 9.84428 15.6065L11.9995 13.4513L14.1546 15.6064C14.4475 15.8993 14.9224 15.8993 15.2153 15.6064C15.5082 15.3135 15.5082 14.8387 15.2153 14.5458L13.0602 12.3906L15.2153 10.2355C15.5082 9.94258 15.5082 9.46771 15.2153 9.17482C14.9224 8.88192 14.4475 8.88192 14.1546 9.17482L11.9995 11.33L9.84428 9.17475C9.55139 8.88186 9.07652 8.88186 8.78362 9.17475C8.49073 9.46764 8.49073 9.94251 8.78362 10.2354Z"
+                        fill="#DB4444"
+                      />
+                    </svg>
+                  </span>
+                  {images && images.length > 0 ? (
+                    <img
+                      src={images[0]}
+                      alt={title}
+                      className="w-[clamp(70px,0.2vw,70vw)] h-auto"
+                    />
+                  ) : (
+                    ""
+                  )}
+
                   {title}
                 </div>
 
@@ -83,11 +105,14 @@ function CartList() {
                           : "bg-white"
                       }`}
                   >
-                    <input
-                      readOnly
-                      value={quantity.toString().padStart(2, "0")}
-                      className="focus:outline-none w-12 font-semibold text-center"
-                    />
+                    {quantity && (
+                      <input
+                        readOnly
+                        value={quantity.toString().padEnd(2, "0")}
+                        className="focus:outline-none w-12 font-semibold text-center"
+                      />
+                    )}
+
                     <div className="flex flex-col ml-4">
                       <button
                         onClick={() => updateQuantity(id, 1)}
@@ -142,7 +167,9 @@ function CartList() {
           }
         )}
 
-      {cartList && cartList.length > 0 && <CartListTotal cart={cartList} />}
+      {cart_lists && cart_lists.length > 0 && (
+        <CartListTotal cart={cart_lists} />
+      )}
     </>
   );
 }

@@ -26,7 +26,7 @@ const productsSlice = createSlice({
       state.wishlists = action.payload;
     },
     addToCartLists(state, action) {
-      state.cart_lists = [...state.cart_lists, action.payload];
+      state.cart_lists = action.payload;
     },
     deleteFromCartLists(state, action) {
       state.cart_lists = action.payload;
