@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  // base: '/react-products-store'
+  base: process.env.VITE_BASE_PATH || '/react-products-store'
 })
