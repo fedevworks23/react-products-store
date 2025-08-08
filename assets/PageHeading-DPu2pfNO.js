@@ -1,0 +1,1 @@
+import{j as e}from"./index-DfX44eLf.js";function t({title:n}){return e.jsx(e.Fragment,{children:e.jsx("div",{className:"my-10 text-2xl decoration-[var(--button-bg)] underline underline-offset-12",children:n})})}export{t as P};
